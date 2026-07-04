@@ -236,6 +236,7 @@ namespace Punto.Forms
             this.gbBusqueda.TabIndex = 0;
             this.gbBusqueda.TabStop = false;
             this.gbBusqueda.Text = "Buscar producto";
+            this.gbBusqueda.Enter += new System.EventHandler(this.gbBusqueda_Enter);
             // 
             // gbDatos
             // 

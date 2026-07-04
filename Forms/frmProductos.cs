@@ -181,7 +181,7 @@ namespace Punto.Forms
                     {
                         string sql = "DELETE FROM productos WHERE producto_id=@id";
                         MySqlCommand cmd = new MySqlCommand(sql, cn);
-                        cmd.Parameters.AddWithValue("@id", lblId.Text);
+                        cmd.Parameters.AddWithValue("@id", Convert.ToInt32(lblId.Text));
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Producto eliminado correctamente.");
                         CargarProductos();
@@ -214,6 +214,11 @@ namespace Punto.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void gbBusqueda_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
