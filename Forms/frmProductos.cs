@@ -193,5 +193,26 @@ namespace Punto.Forms
                 }
             }
         }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                using (MySqlConnection cn = conexion.ObtenerConexion())
+                {
+                    string sql = @"SELECT producto_id AS ID,codigo AS Codigo,descripcion AS Nombre,precio AS Precio,stock AS Stock FROM productos WHERE descripcion LIKE @buscar";
+                    MySqlDataAdapter da = new MySqlDataAdapter(sql, cn);
+                    da.SelectCommand.Parameters.AddWithValue("@buscar", "%" + txtBusqueda.Text.Trim() + "%");
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dgvProductos.DataSource = dt;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
