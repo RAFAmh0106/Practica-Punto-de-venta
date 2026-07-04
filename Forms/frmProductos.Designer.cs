@@ -124,6 +124,12 @@ namespace Punto.Forms
             // cmbCategorias
             // 
             this.cmbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategorias.Items.AddRange(new object[] {
+            "Bebidas",
+            "Botanas",
+            "Dulces",
+            "Bebidas Alcoholicas",
+            "Otros"});
             this.cmbCategorias.Location = new System.Drawing.Point(615, 48);
             this.cmbCategorias.Name = "cmbCategorias";
             this.cmbCategorias.Size = new System.Drawing.Size(150, 24);
