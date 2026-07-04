@@ -99,5 +99,20 @@ namespace Punto.Forms
                 MessageBox.Show("Error al registrar el producto:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0)
+            {
+                DataGridViewRow fila = dgvProductos.Rows[e.RowIndex];
+
+                lblId.Text = fila.Cells["ID"].Value.ToString();
+                txtCodigo.Text = fila.Cells["Codigo"].Value.ToString();
+                txtNombre.Text = fila.Cells["Nombre"].Value.ToString();
+                txtPrecio.Text = fila.Cells["Precio"].Value.ToString();
+                txtStock.Text = fila.Cells["Stock"].Value.ToString();
+            }
+
+        }
     }
 }

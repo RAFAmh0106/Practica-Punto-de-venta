@@ -24,7 +24,7 @@ namespace Punto.Forms
             {
                 Conexion conexion = new Conexion();
                 MySqlConnection cn = conexion.ObtenerConexion();
-                string sql = "SELECT nombre_completo" + "FROM usuarios"+ "WHERE username=@usuario" + " AND password=@password";
+                string sql = "SELECT nombre_completo FROM usuarios WHERE username=@usuario AND password=@password";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
                 cmd.Parameters.AddWithValue("@usuario", txtUser.Text);
