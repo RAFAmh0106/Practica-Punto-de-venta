@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Punto.Datos
 {
     internal class Conexion
     {
-        private string cadena = "Server=localhost;" + "Database=PuntoDB;" + "Uid=root;" + "Pwd=;" + "Port=3306;" + "SslMode=None;";
-    }
+        private string cadena= "Server=localhost;"+"Database=PuntoDB;"+"Uid=root;"+ "Pwd=;"+ "Port=3306;"+ "SslMode=none;";
 
-    public MySqlConnection ObtenerConexion()
+        public MySqlConnection ObtenerConexion()
         {
             MySqlConnection conexion = new MySqlConnection(cadena);
+
             conexion.Open();
             return conexion;
         }
+    }
+   
 }
