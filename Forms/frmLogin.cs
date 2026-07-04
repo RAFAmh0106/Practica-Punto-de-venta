@@ -1,4 +1,6 @@
 using System.Windows.Forms;
+using Punto.Datos;
+using MySql.Data.MySqlClient;
 
 namespace Punto.Forms
 {
@@ -14,6 +16,11 @@ namespace Punto.Forms
             frmPrincipal principal= new frmPrincipal();
             this.Hide();
             principal.Show();
+        }
+
+        private void frmLogin_Load(object sender, System.EventArgs e)
+        {
+
         }
     }
 }
