@@ -114,5 +114,84 @@ namespace Punto.Forms
             }
 
         }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (lblId.Text == "0")
+            {
+                MessageBox.Show("Seleccione un producto");
+                return;
+            }
+
+            decimal precio;
+            int stock;
+
+            if (!decimal.TryParse(txtPrecio.Text, out precio))
+            {
+                MessageBox.Show("Precio no valido");
+                return;
+            }
+
+            if (!int.TryParse(txtStock.Text, out stock))
+            {
+                MessageBox.Show("Stock no valido");
+                return;
+            }
+
+            try
+            {
+                using (MySqlConnection cn = conexion.ObtenerConexion())
+                {
+                    string sql = @"UPDATE productos SET codigo=@codigo,descripcion=@descripcion,precio=@precio,stock=@stock WHERE producto_id=@id";
+                    MySqlCommand cmd = new MySqlCommand(sql, cn);
+                    cmd.Parameters.AddWithValue("@codigo", txtCodigo.Text.Trim());
+                    cmd.Parameters.AddWithValue("@descripcion", txtNombre.Text.Trim());
+                    cmd.Parameters.AddWithValue("@precio", precio);
+                    cmd.Parameters.AddWithValue("@stock", stock);
+                    cmd.Parameters.AddWithValue("@id", lblId.Text);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Producto actualizado correctamente.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarProductos();
+                    Limpiar();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el producto:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (lblId.Text == "0")
+            {
+                MessageBox.Show("Seleccione un producto");
+                return;
+            }
+
+            DialogResult respuesta= MessageBox.Show("¿Está seguro de eliminar el producto?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if(respuesta== DialogResult.Yes)
+            {
+                try
+                {
+                    using(MySqlConnection cn= conexion.ObtenerConexion())
+                    {
+                        string sql = "DELETE FROM productos WHERE producto_id=@id";
+                        MySqlCommand cmd = new MySqlCommand(sql, cn);
+                        cmd.Parameters.AddWithValue("@id", lblId.Text);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Producto eliminado correctamente.");
+                        CargarProductos();
+                        Limpiar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
     }
 }
