@@ -5,6 +5,9 @@ namespace Punto.Forms
 {
     public partial class frmPrincipal : Form
     {
+
+        public string NombreUsuario { get; set; }
+
         public frmPrincipal()
         {
             InitializeComponent();
@@ -29,6 +32,11 @@ namespace Punto.Forms
         private void productosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AbrirFormulario(typeof(frmProductos));
+        }
+
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+            lblUsuario.Text = "Bienvenido: " + NombreUsuario;
         }
     }
 }

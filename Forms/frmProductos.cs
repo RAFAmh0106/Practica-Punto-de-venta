@@ -22,7 +22,6 @@ namespace Punto.Forms
                 using (MySqlConnection cn = conexion.ObtenerConexion())
                 {
                     string sql = @"SELECT producto_id AS ID,codigo AS Codigo,descripcion AS Nombre,precio AS Precio,stock AS Stock FROM productos";
-
                     MySqlDataAdapter da = new MySqlDataAdapter(sql, cn);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -53,7 +52,7 @@ namespace Punto.Forms
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            if(txtCodigo.Text.Trim() == "" || txtNombre.Text.Trim() == "" || txtPrecio.Text.Trim() == "" || txtStock.Text.Trim() == "" )
+            if(txtCodigo.Text.Trim() == "" || txtNombre.Text.Trim() == "" || txtPrecio.Text.Trim() == "" || txtStock.Text.Trim() == "" || cmbCategorias.Text.Trim() == "")
             {
                 MessageBox.Show("Complete todos los campos", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -79,7 +78,7 @@ namespace Punto.Forms
             {
                 using(MySqlConnection cn= conexion.ObtenerConexion())
                 {
-                    string sql= @"INSERT INTO productos(codigo,descripcion,precio,stock)VALUES(@codigo,@descripcion,@precio,@stock)";
+                    string sql= @"INSERT INTO productos(codigo,descripcion,precio,stock,categoria)VALUES(@codigo,@descripcion,@precio,@stock,@categoria)";
 
                     MySqlCommand cmd = new MySqlCommand(sql, cn);
 
@@ -87,6 +86,7 @@ namespace Punto.Forms
                     cmd.Parameters.AddWithValue("@descripcion", txtNombre.Text.Trim());
                     cmd.Parameters.AddWithValue("@precio", precio);
                     cmd.Parameters.AddWithValue("@stock", stock);
+                    cmd.Parameters.AddWithValue("@categoria", cmbCategorias.Text);
 
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Producto registrado correctamente.","Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -142,13 +142,14 @@ namespace Punto.Forms
             {
                 using (MySqlConnection cn = conexion.ObtenerConexion())
                 {
-                    string sql = @"UPDATE productos SET codigo=@codigo,descripcion=@descripcion,precio=@precio,stock=@stock WHERE producto_id=@id";
+                    string sql = @"UPDATE productos SET codigo=@codigo,descripcion=@descripcion,precio=@precio,stock=@stock,categoria=@categoria WHERE producto_id=@id";
                     MySqlCommand cmd = new MySqlCommand(sql, cn);
                     cmd.Parameters.AddWithValue("@codigo", txtCodigo.Text.Trim());
                     cmd.Parameters.AddWithValue("@descripcion", txtNombre.Text.Trim());
                     cmd.Parameters.AddWithValue("@precio", precio);
                     cmd.Parameters.AddWithValue("@stock", stock);
                     cmd.Parameters.AddWithValue("@id", lblId.Text);
+                    cmd.Parameters.AddWithValue("@categoria", cmbCategorias.Text);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Producto actualizado correctamente.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarProductos();

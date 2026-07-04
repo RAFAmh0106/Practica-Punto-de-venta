@@ -35,6 +35,7 @@ namespace Punto.Forms
                 {
                     MessageBox.Show("Bienvenido" + dr["nombre_completo"]);
                     frmPrincipal principal = new frmPrincipal();
+                    principal.NombreUsuario = dr["nombre_completo"].ToString();
                     this.Hide();
                     principal.Show();
                 }
